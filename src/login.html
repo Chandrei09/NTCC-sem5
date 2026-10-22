@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recipe Finder Log In</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        /* =====================================================
+           COLORS
+        ===================================================== */
+
+        :root {
+            --bg-pink: #fdeceb;
+            --text-dark: #4a2f2d;
+            --text-light: #7a5e5c;
+            --primary-pink: #f18995;
+            --border-pink: #f5c3c8;
+            --soft-pink: #f8d5d8;
+            --input-bg: #ffffff;
+            --gray-border: #e6d3d5;
+        }
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-pink);
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        /* =====================================================
+           TOP SCALLOPED BORDER
+        ===================================================== */
+
+        .scalloped-top {
+            height: 25px;
+            background-image:
+                radial-gradient(
+                    circle at 15px 0,
+                    transparent 15px,
+                    #f8d5d8 16px
+                );
+            background-size: 30px 25px;
+            background-repeat: repeat-x;
+            width: 100%;
+            border-top: 20px solid #f8d5d8;
+        }
+
+        /* =====================================================
+           MAIN WRAPPER
+        ===================================================== */
+
+        .wrapper {
+            width: 580px;
+            max-width: calc(100% - 40px);
+            margin: 35px auto 70px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* =====================================================
+           DECORATIONS
+        ===================================================== */
+
+        .decor {
+            position: absolute;
+            z-index: 2;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* LEFT SIDE */
+        .decor-salad { top: 280px; left: 45px; width: 165px; }
+        .decor-strawberries { top: 510px; left: 80px; width: 110px; }
+        .decor-books { top: 720px; left: 35px; width: 180px; }
+
+        /* RIGHT SIDE */
+        .decor-chef { top: 320px; right: 40px; width: 175px; }
+        .decor-spoon { top: 520px; right: 75px; width: 135px; }
+        .decor-notes { top: 680px; right: 40px; width: 155px; }
+        .decor-avocado { top: 850px; right: 65px; width: 125px; }
+
+        /* =====================================================
+           DECORATIVE QUOTES
+        ===================================================== */
+
+        .floating-text {
+            position: absolute;
+            z-index: 3;
+            width: 135px;
+            text-align: center;
+            font-family: 'Patrick Hand', cursive;
+            line-height: 1.05;
+        }
+
+        .text-left { top: 85px; left: 55px; transform: rotate(-7deg); }
+        .text-right { top: 85px; right: 55px; transform: rotate(7deg); }
+
+        .quote-main { font-size: 23px; font-weight: 700; color: #9d555d; display: block; }
+        .quote-middle { font-size: 27px; font-weight: 700; color: #d96f7b; margin: 2px 0; display: block; }
+        .quote-small { font-size: 20px; color: #80504f; display: block; }
+        .quote-heart { font-size: 20px; color: #ed8c99; margin-top: 5px; display: block; }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header-title {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .header-title .fa-hat-chef {
+            font-size: 42px;
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: -4px;
+        }
+
+        .header-title h1 {
+            font-size: 48px;
+            line-height: 1.08;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 15px;
+            word-spacing: 2px;
+        }
+
+        .tagline span {
+            color: var(--primary-pink);
+            margin: 0 8px;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           FORM BOX
+        ===================================================== */
+
+        .form-box {
+            background-color: rgba(255, 255, 255, 0.92);
+            border: 2px solid var(--border-pink);
+            border-radius: 40px;
+            padding: 40px 45px;
+            text-align: left;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(241, 137, 149, 0.08);
+            position: relative;
+        }
+
+        .form-box h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            color: var(--text-dark);
+        }
+
+        .form-box h2::before,
+        .form-box h2::after {
+            content: '♥';
+            color: var(--primary-pink);
+            font-size: 20px;
+            position: absolute;
+            top: 7px;
+        }
+
+        .form-box h2::before { left: -30px; }
+        .form-box h2::after { right: -30px; }
+
+        .form-box .subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           INPUT FIELDS
+        ===================================================== */
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group > i:first-child {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dark);
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .input-group .password-eye {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+            font-size: 18px;
+            z-index: 3;
+        }
+
+        .input-group .password-eye:hover {
+            color: var(--primary-pink);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 50px 16px 48px;
+            border: 1px solid var(--gray-border);
+            border-radius: 16px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            background-color: #fafafa;
+            box-sizing: border-box;
+            color: var(--text-dark);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-pink);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(241, 137, 149, 0.1);
+        }
+
+        /* =====================================================
+           FORM OPTIONS (Remember Me / Forgot Password)
+        ===================================================== */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-pink);
+            cursor: pointer;
+            border: 1px solid var(--text-dark);
+            border-radius: 4px;
+        }
+
+        .forgot-password {
+            color: var(--primary-pink);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           LOG IN BUTTON
+        ===================================================== */
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #e57280;
+            transform: translateY(-2px);
+        }
+
+        /* =====================================================
+           DIVIDER
+        ===================================================== */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        /* =====================================================
+           GOOGLE BUTTON
+        ===================================================== */
+
+        .google-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background-color: #fff;
+            border: 1px solid var(--primary-pink);
+            color: var(--text-dark);
+            padding: 15px;
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .google-btn:hover {
+            background-color: var(--bg-pink);
+        }
+
+        .google-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* =====================================================
+           SIGN UP LINK
+        ===================================================== */
+
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .signup-link a {
+            color: var(--primary-pink);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           BOTTOM SCALLOP & FOOTER (Kept original)
+        ===================================================== */
+
+        .scalloped-bottom {
+            height: 25px;
+            background-image: radial-gradient(circle at 15px 25px, transparent 15px, #f8d5d8 16px);
+            background-size: 30px 25px;
+            background-repeat: repeat-x;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .footer-wrapper {
+            background-color: #f8d5d8;
+            padding: 30px 20px 40px;
+        }
+
+        .footer-features {
+            display: flex;
+            justify-content: space-around;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            text-align: center;
+            flex: 1;
+        }
+
+        .feature i {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature h4 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1200px) {
+            .decor-salad { left: 20px; width: 130px; }
+            .decor-strawberries { left: 30px; }
+            .decor-books { left: 15px; width: 140px; }
+            .decor-chef { right: 20px; width: 140px; top: 310px; }
+            .decor-spoon { right: 25px; }
+            .decor-notes { right: 20px; }
+            .decor-avocado { right: 25px; }
+            .text-left { left: 20px; }
+            .text-right { right: 20px; }
+        }
+
+        @media (max-width: 900px) {
+            .decor, .floating-text { display: none; }
+            .wrapper { width: 580px; max-width: calc(100% - 25px); margin-top: 25px; }
+            .header-title h1 { font-size: 40px; }
+            .form-box { padding: 35px 25px; }
+        }
+
+        @media (max-width: 600px) {
+            .header-title h1 { font-size: 34px; }
+            .tagline { font-size: 13px; }
+            .form-box { border-radius: 28px; padding: 30px 20px; }
+            .form-box h2 { font-size: 24px; }
+            .form-box .subtitle { font-size: 14px; }
+            .footer-features { flex-direction: column; gap: 25px; }
+            .form-options { flex-direction: column; gap: 15px; align-items: flex-start; }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- DECORATIVE QUOTES -->
+    <div class="floating-text text-left">
+        <span class="quote-main">Good Food</span>
+        <span class="quote-middle">= Happy</span>
+        <span class="quote-small">You</span>
+        <span class="quote-heart">♡</span>
+    </div>
+
+    <div class="floating-text text-right">
+        <span class="quote-main">Good Food</span>
+        <span class="quote-middle">= Good</span>
+        <span class="quote-small">Mood</span>
+        <span class="quote-heart">♡</span>
+    </div>
+
+    <!-- LEFT DECORATIONS -->
+    <img src="salad-bowl.png" alt="Salad bowl illustration" class="decor decor-salad">
+    <img src="strawberries.png" alt="Strawberries illustration" class="decor decor-strawberries">
+    <img src="recipe-books.png" alt="Recipe books illustration" class="decor decor-books">
+
+    <!-- RIGHT DECORATIONS -->
+    <img src="chef-hat-cute.png" alt="Cute chef hat illustration" class="decor decor-chef">
+    <img src="wooden-spoon.png" alt="Wooden spoon illustration" class="decor decor-spoon">
+    <img src="notes.png" alt="Cute notes illustration" class="decor decor-notes">
+    <img src="avocado.png" alt="Cute avocado illustration" class="decor decor-avocado">
+
+    <!-- TOP BORDER -->
+    <div class="scalloped-top"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="wrapper">
+
+        <!-- HEADER -->
+        <div class="header-title">
+            <i class="fa-solid fa-hat-chef"></i>
+            <h1>
+                Recipe Finder
+                <br>
+                & Meal Planner
+            </h1>
+
+            <div class="tagline">
+                Discover new recipes
+                <span>♥</span>
+                Plan your meals
+                <span>♥</span>
+                Eat better
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-box">
+            <h2>Welcome Back</h2>
+
+            <p class="subtitle">
+                Log in to your account and<br>
+                continue your delicious journey!
+            </p>
+
+            <form id="loginForm">
+                <!-- EMAIL -->
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="email" id="loginEmail" placeholder="Email Address" required>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fa-regular fa-eye password-eye" onclick="togglePassword('password', this)"></i>
+                </div>
+
+                <!-- OPTIONS -->
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" checked>
+                        Remember Me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password? &rarr;</a>
+                </div>
+
+                <!-- LOG IN -->
+                <button type="submit" class="submit-btn">
+                    Log In ♡
+                </button>
+
+                <!-- DIVIDER -->
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <!-- GOOGLE LOG IN -->
+                <button type="button" class="google-btn">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
+                <!-- SIGN UP LINK -->
+                <div class="signup-link">
+                    Don't have an account?
+                    <a href="signup.html">Sign Up &rarr;</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- BOTTOM BORDER -->
+    <div class="scalloped-bottom"></div>
+
+    <!-- FOOTER -->
+    <div class="footer-wrapper">
+        <div class="footer-features">
+            <div class="feature">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h4>Find Recipes</h4>
+                <p>for every mood</p>
+            </div>
+
+            <div class="feature">
+                <i class="fa-regular fa-calendar-check"></i>
+                <h4>Plan Your Meals</h4>
+                <p>save time & eat well</p>
+            </div>
+
+            <div class="feature">
+                <i class="fa-regular fa-heart"></i>
+                <h4>Track Your Goals</h4>
+                <p>healthy & happy you</p>
+            </div>
+
+            <div class="feature">
+                <i class="fa-brands fa-envira"></i>
+                <h4>Simple. Tasty. Yours.</h4>
+                <p>♥</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD SHOW / HIDE -->
+    <script>
+        function togglePassword(inputId, eyeIcon) {
+            const passwordInput = document.getElementById(inputId);
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    // 1. Stop the page from reloading
+    event.preventDefault();
+
+    // 2. Grab the email and password the user typed
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('password').value;
+
+    // 3. Package the data and send it to our Node.js server
+    try {
+        const response = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                email: email, 
+                password: password 
+            })
+        });
+
+        // 4. Read the server's reply
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Success! " + data.message);
+        } else {
+            alert("Error: " + data.message);
+        }
+        
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Could not connect to the server. Is it running?");
+    }
+});
+    </script>
+</body>
+</html>

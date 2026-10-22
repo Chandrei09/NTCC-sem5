@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recipe Finder Sign Up</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        /* =====================================================
+           COLORS
+        ===================================================== */
+
+        :root {
+            --bg-pink: #fdeceb;
+            --text-dark: #4a2f2d;
+            --text-light: #7a5e5c;
+            --primary-pink: #f18995;
+            --border-pink: #f5c3c8;
+            --soft-pink: #f8d5d8;
+            --input-bg: #ffffff;
+        }
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-pink);
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        /* =====================================================
+           TOP SCALLOPED BORDER
+        ===================================================== */
+
+        .scalloped-top {
+            height: 25px;
+            background-image:
+                radial-gradient(
+                    circle at 15px 0,
+                    transparent 15px,
+                    #f8d5d8 16px
+                );
+            background-size: 30px 25px;
+            background-repeat: repeat-x;
+            width: 100%;
+            border-top: 20px solid #f8d5d8;
+        }
+
+        /* =====================================================
+           MAIN WRAPPER
+        ===================================================== */
+
+        .wrapper {
+            width: 580px;
+            max-width: calc(100% - 40px);
+            margin: 35px auto 70px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* =====================================================
+           DECORATIONS (Bigger & Spaced out to prevent overlap)
+        ===================================================== */
+
+        .decor {
+            position: absolute;
+            z-index: 2;
+            object-fit: contain;
+            display: block;
+        }
+
+        /*
+        -------------------------------------------------------
+        LEFT SIDE
+        -------------------------------------------------------
+        */
+
+        .decor-salad {
+            top: 280px;
+            left: 45px;
+            width: 165px;
+        }
+
+        .decor-strawberries {
+            top: 510px;
+            left: 80px;
+            width: 110px;
+        }
+
+        .decor-books {
+            top: 720px;
+            left: 35px;
+            width: 180px;
+        }
+
+        /*
+        -------------------------------------------------------
+        RIGHT SIDE
+        -------------------------------------------------------
+        */
+
+        .decor-chef {
+            top: 320px; /* Shifted down to prevent text collision */
+            right: 40px;
+            width: 175px; /* Made bigger */
+        }
+
+        .decor-spoon {
+            top: 520px;
+            right: 75px;
+            width: 135px;
+        }
+
+        .decor-notes {
+            top: 680px;
+            right: 40px;
+            width: 155px;
+        }
+
+        .decor-avocado {
+            top: 850px;
+            right: 65px;
+            width: 125px;
+        }
+
+        /* =====================================================
+           DECORATIVE QUOTES
+        ===================================================== */
+
+        .floating-text {
+            position: absolute;
+            z-index: 3;
+            width: 135px;
+            text-align: center;
+            font-family: 'Patrick Hand', cursive;
+            line-height: 1.05;
+        }
+
+        .text-left {
+            top: 85px;
+            left: 55px;
+            transform: rotate(-7deg);
+        }
+
+        .text-right {
+            top: 85px; /* Shifted up slightly */
+            right: 55px;
+            transform: rotate(7deg);
+        }
+
+        .quote-line {
+            display: block;
+        }
+
+        .quote-main {
+            font-size: 23px;
+            font-weight: 700;
+            color: #9d555d;
+        }
+
+        .quote-middle {
+            font-size: 27px;
+            font-weight: 700;
+            color: #d96f7b;
+            margin: 2px 0;
+        }
+
+        .quote-small {
+            font-size: 20px;
+            color: #80504f;
+        }
+
+        .quote-heart {
+            font-size: 20px;
+            color: #ed8c99;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header-title {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .header-title .fa-hat-chef {
+            font-size: 42px;
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: -4px;
+        }
+
+        .header-title h1 {
+            font-size: 48px;
+            line-height: 1.08;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 15px;
+            word-spacing: 2px;
+        }
+
+        .tagline span {
+            color: var(--primary-pink);
+            margin: 0 8px;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           FORM BOX
+        ===================================================== */
+
+        .form-box {
+            background-color: rgba(255, 255, 255, 0.92);
+            border: 2px solid var(--border-pink);
+            border-radius: 40px;
+            padding: 40px 45px;
+            text-align: left;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(241, 137, 149, 0.08);
+            position: relative;
+        }
+
+        .form-box h2 {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .form-box h2::before,
+        .form-box h2::after {
+            content: '♥';
+            color: var(--primary-pink);
+            font-size: 17px;
+            position: absolute;
+            top: 5px;
+        }
+
+        .form-box h2::before {
+            left: -25px;
+        }
+
+        .form-box h2::after {
+            right: -25px;
+        }
+
+        .form-box .subtitle {
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           INPUT FIELDS
+        ===================================================== */
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group > i:first-child {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dark);
+            font-size: 16px;
+            z-index: 2;
+        }
+
+        .input-group .password-eye {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+            font-size: 16px;
+            z-index: 3;
+        }
+
+        .input-group .password-eye:hover {
+            color: var(--primary-pink);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 50px 15px 48px;
+            border: 1px solid var(--border-pink);
+            border-radius: 16px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            background-color: var(--input-bg);
+            box-sizing: border-box;
+            color: var(--text-dark);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 3px rgba(241, 137, 149, 0.1);
+        }
+
+        /* =====================================================
+           DATE OF BIRTH
+        ===================================================== */
+
+        .dob-label {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dob-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-pink);
+            border-radius: 16px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            background-color: var(--input-bg);
+            box-sizing: border-box;
+            outline: none;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .dob-input:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 3px rgba(241, 137, 149, 0.1);
+        }
+
+        .dob-container {
+            margin-bottom: 25px;
+        }
+
+        /* =====================================================
+           INTERESTS
+        ===================================================== */
+
+        .interests-section {
+            margin-top: 25px;
+        }
+
+        .interests-section p {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+        }
+
+        .pill-checkbox {
+            display: none;
+        }
+
+        .pill-label {
+            border: 1px solid var(--border-pink);
+            background-color: #fff;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .pill-checkbox:checked + .pill-label {
+            background-color: #fdf0f1;
+            border-color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           TERMS
+        ===================================================== */
+
+        .terms-group {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .terms-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-pink);
+            cursor: pointer;
+        }
+
+        .terms-group a {
+            color: var(--primary-pink);
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           SIGN UP BUTTON
+        ===================================================== */
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 22px;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #e57280;
+            transform: translateY(-2px);
+        }
+
+        /* =====================================================
+           LOGIN
+        ===================================================== */
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .login-link a {
+            color: var(--primary-pink);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           BOTTOM SCALLOP
+        ===================================================== */
+
+        .scalloped-bottom {
+            height: 25px;
+            background-image:
+                radial-gradient(
+                    circle at 15px 25px,
+                    transparent 15px,
+                    #f8d5d8 16px
+                );
+            background-size: 30px 25px;
+            background-repeat: repeat-x;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer-wrapper {
+            background-color: #f8d5d8;
+            padding: 30px 20px 40px;
+        }
+
+        .footer-features {
+            display: flex;
+            justify-content: space-around;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            text-align: center;
+            flex: 1;
+        }
+
+        .feature i {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature h4 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* =====================================================
+           RESPONSIVE - TABLET
+        ===================================================== */
+
+        @media (max-width: 1200px) {
+            /* Adjustments so images don't crowd the form on medium screens */
+            .decor-salad { left: 20px; width: 130px; }
+            .decor-strawberries { left: 30px; }
+            .decor-books { left: 15px; width: 140px; }
+            .decor-chef { right: 20px; width: 140px; top: 310px; }
+            .decor-spoon { right: 25px; }
+            .decor-notes { right: 20px; }
+            .decor-avocado { right: 25px; }
+            .text-left { left: 20px; }
+            .text-right { right: 20px; }
+        }
+
+        /* =====================================================
+           RESPONSIVE - SMALL SCREEN
+        ===================================================== */
+
+        @media (max-width: 900px) {
+            .decor,
+            .floating-text {
+                display: none;
+            }
+            .wrapper {
+                width: 580px;
+                max-width: calc(100% - 25px);
+                margin-top: 25px;
+            }
+            .header-title h1 {
+                font-size: 40px;
+            }
+            .form-box {
+                padding: 35px 25px;
+            }
+        }
+
+        /* =====================================================
+           RESPONSIVE - MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+            .header-title h1 {
+                font-size: 34px;
+            }
+            .tagline {
+                font-size: 13px;
+            }
+            .form-box {
+                border-radius: 28px;
+                padding: 30px 20px;
+            }
+            .form-box h2 {
+                font-size: 22px;
+            }
+            .form-box .subtitle {
+                font-size: 13px;
+            }
+            .footer-features {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         DECORATIVE QUOTE - LEFT
+    ===================================================== -->
+
+    <div class="floating-text text-left">
+        <span class="quote-main">Good Food</span>
+        <span class="quote-middle">= Happy</span>
+        <span class="quote-small">You</span>
+        <span class="quote-heart">♡</span>
+    </div>
+
+    <!-- =====================================================
+         DECORATIVE QUOTE - RIGHT
+    ===================================================== -->
+
+    <div class="floating-text text-right">
+        <span class="quote-main">Good Food</span>
+        <span class="quote-middle">= Good</span>
+        <span class="quote-small">Mood</span>
+        <span class="quote-heart">♡</span>
+    </div>
+
+    <!-- =====================================================
+         LEFT DECORATIONS
+    ===================================================== -->
+
+    <img src="salad-bowl.png" alt="Salad bowl illustration" class="decor decor-salad">
+    <img src="strawberries.png" alt="Strawberries illustration" class="decor decor-strawberries">
+    <img src="recipe-books.png" alt="Recipe books illustration" class="decor decor-books">
+
+    <!-- =====================================================
+         RIGHT DECORATIONS
+    ===================================================== -->
+
+    <img src="chef-hat-cute.png" alt="Cute chef hat illustration" class="decor decor-chef">
+    <img src="wooden-spoon.png" alt="Wooden spoon illustration" class="decor decor-spoon">
+    <img src="notes.png" alt="Cute notes illustration" class="decor decor-notes">
+    <img src="avocado.png" alt="Cute avocado illustration" class="decor decor-avocado">
+
+    <!-- =====================================================
+         TOP BORDER
+    ===================================================== -->
+
+    <div class="scalloped-top"></div>
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ===================================================== -->
+
+    <div class="wrapper">
+
+        <!-- HEADER -->
+        <div class="header-title">
+            <i class="fa-solid fa-hat-chef"></i>
+            <h1>
+                Recipe Finder
+                <br>
+                & Meal Planner
+            </h1>
+
+            <div class="tagline">
+                Discover new recipes
+                <span>♥</span>
+                Plan your meals
+                <span>♥</span>
+                Eat better
+            </div>
+        </div>
+
+        <!-- =================================================
+             FORM
+        ================================================= -->
+
+        <div class="form-box">
+            <h2>Create Your Account</h2>
+
+            <p class="subtitle">
+                Join us and start your journey to
+                <br>
+                delicious meals and easy planning!
+            </p>
+
+            <form>
+                <!-- FULL NAME -->
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="input-group">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fa-regular fa-eye password-eye" onclick="togglePassword('password', this)"></i>
+                </div>
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <i class="fa-regular fa-eye password-eye" onclick="togglePassword('confirmPassword', this)"></i>
+                </div>
+
+                <!-- DATE OF BIRTH -->
+                <div class="dob-container">
+                    <div class="dob-label">
+                        <i class="fa-regular fa-calendar"></i>
+                        Date of Birth
+                    </div>
+                    <input type="date" class="dob-input" required>
+                </div>
+
+                <!-- INTERESTS -->
+                <div class="interests-section">
+                    <p>
+                        <i class="fa-regular fa-heart"></i>
+                        Choose Your Interests
+                    </p>
+
+                    <div class="pills-container">
+                        <input type="checkbox" id="int1" class="pill-checkbox">
+                        <label for="int1" class="pill-label">Quick Meals</label>
+
+                        <input type="checkbox" id="int2" class="pill-checkbox">
+                        <label for="int2" class="pill-label">Healthy Eating</label>
+
+                        <input type="checkbox" id="int3" class="pill-checkbox">
+                        <label for="int3" class="pill-label">Vegetarian</label>
+
+                        <input type="checkbox" id="int4" class="pill-checkbox">
+                        <label for="int4" class="pill-label">Baking</label>
+
+                        <input type="checkbox" id="int5" class="pill-checkbox">
+                        <label for="int5" class="pill-label">Weight Loss</label>
+
+                        <input type="checkbox" id="int6" class="pill-checkbox">
+                        <label for="int6" class="pill-label">Everything!</label>
+                    </div>
+                </div>
+
+                <!-- TERMS -->
+                <div class="terms-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        I agree to the
+                        <a href="#">Terms & Conditions</a>
+                        and
+                        <a href="#">Privacy Policy</a>.
+                    </label>
+                </div>
+
+                <!-- SIGN UP -->
+                <button type="submit" class="submit-btn">
+                    Sign Up ♡
+                </button>
+
+                <!-- LOGIN -->
+                <div class="login-link">
+                    Already have an account?
+                    <a href="#">Log In &rarr;</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         BOTTOM BORDER
+    ===================================================== -->
+
+    <div class="scalloped-bottom"></div>
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <div class="footer-wrapper">
+        <div class="footer-features">
+            <div class="feature">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h4>Find Recipes</h4>
+                <p>for every mood</p>
+            </div>
+
+            <div class="feature">
+                <i class="fa-regular fa-calendar-check"></i>
+                <h4>Plan Your Meals</h4>
+                <p>save time & eat well</p>
+            </div>
+
+            <div class="feature">
+                <i class="fa-regular fa-heart"></i>
+                <h4>Track Your Goals</h4>
+                <p>healthy & happy you</p>
+            </div>
+
+            <div class="feature">
+                <i class="fa-brands fa-envira"></i>
+                <h4>Simple. Tasty. Yours.</h4>
+                <p>♥</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         PASSWORD SHOW / HIDE
+    ===================================================== -->
+
+    <script>
+        function togglePassword(inputId, eyeIcon) {
+            const passwordInput = document.getElementById(inputId);
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>
